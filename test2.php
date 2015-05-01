@@ -18,19 +18,19 @@ foreach ($array as $rowKey => $rowColumns) {
     }
 }
 
+$maxColumnLength = max(array_keys($columnLength));
 $str = '';
-foreach ($array as $rowKey => $rowColumns) {
-    $line = '';
+$line = '+';
+
+foreach ($array[0] as $colKey => $colValue) {
+    $l = $columnLength[$colKey] + 2;
+    for ($i = 0; $i < $l; $i++)
+        $line .= '-';
+
     $line .= '+';
+}
 
-    foreach ($rowColumns as $colKey => $colValue) {
-        $l = $columnLength[$colKey] + 2;
-        for ($i = 0; $i < $l; $i++)
-            $line .= '-';
-
-        $line .= '+';
-    }
-
+foreach ($array as $rowKey => $rowColumns) {
     $str .= $line . "\n";
 
     foreach ($rowColumns as $colKey => $colValue) {
@@ -41,7 +41,7 @@ foreach ($array as $rowKey => $rowColumns) {
         for ($i = 0; $i < $l; $i++)
             $str .= ' ';
 
-        if (max(array_keys($columnLength)) == $colKey) {
+        if ($maxColumnLength == $colKey) {
             $str .= '|';
         }
     }
